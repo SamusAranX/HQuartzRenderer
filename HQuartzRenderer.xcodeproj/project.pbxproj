@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5645AC5C19AE85A50038877A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC5B19AE85A50038877A /* main.swift */; };
+		5645AC5E19AE85A50038877A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC5D19AE85A50038877A /* ViewController.swift */; };
+		5645AC6019AE85A50038877A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC5F19AE85A50038877A /* AppDelegate.swift */; };
+		5645AC6219AE85A50038877A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5645AC6119AE85A50038877A /* Images.xcassets */; };
+		5645AC6519AE85A50038877A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5645AC6319AE85A50038877A /* Main.storyboard */; };
+		5645AC7119AE85A50038877A /* HQuartzRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC7019AE85A50038877A /* HQuartzRendererTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5645AC6B19AE85A50038877A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5645AC4E19AE85A50038877A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5645AC5519AE85A50038877A;
+			remoteInfo = HQuartzRenderer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5645AC5619AE85A50038877A /* HQuartzRenderer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HQuartzRenderer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5645AC5A19AE85A50038877A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5645AC5B19AE85A50038877A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		5645AC5D19AE85A50038877A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5645AC5F19AE85A50038877A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5645AC6119AE85A50038877A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5645AC6419AE85A50038877A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5645AC6A19AE85A50038877A /* HQuartzRendererTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HQuartzRendererTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5645AC6F19AE85A50038877A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5645AC7019AE85A50038877A /* HQuartzRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQuartzRendererTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5645AC5319AE85A50038877A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5645AC6719AE85A50038877A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5645AC4D19AE85A50038877A = {
+			isa = PBXGroup;
+			children = (
+				5645AC5819AE85A50038877A /* HQuartzRenderer */,
+				5645AC6D19AE85A50038877A /* HQuartzRendererTests */,
+				5645AC5719AE85A50038877A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5645AC5719AE85A50038877A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5645AC5619AE85A50038877A /* HQuartzRenderer.app */,
+				5645AC6A19AE85A50038877A /* HQuartzRendererTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5645AC5819AE85A50038877A /* HQuartzRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				5645AC5D19AE85A50038877A /* ViewController.swift */,
+				5645AC5F19AE85A50038877A /* AppDelegate.swift */,
+				5645AC6119AE85A50038877A /* Images.xcassets */,
+				5645AC6319AE85A50038877A /* Main.storyboard */,
+				5645AC5919AE85A50038877A /* Supporting Files */,
+			);
+			path = HQuartzRenderer;
+			sourceTree = "<group>";
+		};
+		5645AC5919AE85A50038877A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5645AC5A19AE85A50038877A /* Info.plist */,
+				5645AC5B19AE85A50038877A /* main.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5645AC6D19AE85A50038877A /* HQuartzRendererTests */ = {
+			isa = PBXGroup;
+			children = (
+				5645AC7019AE85A50038877A /* HQuartzRendererTests.swift */,
+				5645AC6E19AE85A50038877A /* Supporting Files */,
+			);
+			path = HQuartzRendererTests;
+			sourceTree = "<group>";
+		};
+		5645AC6E19AE85A50038877A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5645AC6F19AE85A50038877A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5645AC5519AE85A50038877A /* HQuartzRenderer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5645AC7419AE85A50038877A /* Build configuration list for PBXNativeTarget "HQuartzRenderer" */;
+			buildPhases = (
+				5645AC5219AE85A50038877A /* Sources */,
+				5645AC5319AE85A50038877A /* Frameworks */,
+				5645AC5419AE85A50038877A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HQuartzRenderer;
+			productName = HQuartzRenderer;
+			productReference = 5645AC5619AE85A50038877A /* HQuartzRenderer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5645AC6919AE85A50038877A /* HQuartzRendererTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5645AC7719AE85A50038877A /* Build configuration list for PBXNativeTarget "HQuartzRendererTests" */;
+			buildPhases = (
+				5645AC6619AE85A50038877A /* Sources */,
+				5645AC6719AE85A50038877A /* Frameworks */,
+				5645AC6819AE85A50038877A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5645AC6C19AE85A50038877A /* PBXTargetDependency */,
+			);
+			name = HQuartzRendererTests;
+			productName = HQuartzRendererTests;
+			productReference = 5645AC6A19AE85A50038877A /* HQuartzRendererTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5645AC4E19AE85A50038877A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Peter Wunder";
+				TargetAttributes = {
+					5645AC5519AE85A50038877A = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					5645AC6919AE85A50038877A = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 5645AC5519AE85A50038877A;
+					};
+				};
+			};
+			buildConfigurationList = 5645AC5119AE85A50038877A /* Build configuration list for PBXProject "HQuartzRenderer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5645AC4D19AE85A50038877A;
+			productRefGroup = 5645AC5719AE85A50038877A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5645AC5519AE85A50038877A /* HQuartzRenderer */,
+				5645AC6919AE85A50038877A /* HQuartzRendererTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5645AC5419AE85A50038877A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5645AC6219AE85A50038877A /* Images.xcassets in Resources */,
+				5645AC6519AE85A50038877A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5645AC6819AE85A50038877A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5645AC5219AE85A50038877A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5645AC6019AE85A50038877A /* AppDelegate.swift in Sources */,
+				5645AC5E19AE85A50038877A /* ViewController.swift in Sources */,
+				5645AC5C19AE85A50038877A /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5645AC6619AE85A50038877A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5645AC7119AE85A50038877A /* HQuartzRendererTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5645AC6C19AE85A50038877A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5645AC5519AE85A50038877A /* HQuartzRenderer */;
+			targetProxy = 5645AC6B19AE85A50038877A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5645AC6319AE85A50038877A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5645AC6419AE85A50038877A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5645AC7219AE85A50038877A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5645AC7319AE85A50038877A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5645AC7519AE85A50038877A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = HQuartzRenderer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5645AC7619AE85A50038877A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = HQuartzRenderer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5645AC7819AE85A50038877A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HQuartzRendererTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HQuartzRenderer.app/Contents/MacOS/HQuartzRenderer";
+			};
+			name = Debug;
+		};
+		5645AC7919AE85A50038877A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HQuartzRendererTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HQuartzRenderer.app/Contents/MacOS/HQuartzRenderer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5645AC5119AE85A50038877A /* Build configuration list for PBXProject "HQuartzRenderer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5645AC7219AE85A50038877A /* Debug */,
+				5645AC7319AE85A50038877A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5645AC7419AE85A50038877A /* Build configuration list for PBXNativeTarget "HQuartzRenderer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5645AC7519AE85A50038877A /* Debug */,
+				5645AC7619AE85A50038877A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5645AC7719AE85A50038877A /* Build configuration list for PBXNativeTarget "HQuartzRendererTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5645AC7819AE85A50038877A /* Debug */,
+				5645AC7919AE85A50038877A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5645AC4E19AE85A50038877A /* Project object */;
+}
