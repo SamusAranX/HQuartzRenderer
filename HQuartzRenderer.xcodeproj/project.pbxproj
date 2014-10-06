@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5602EFEF19AF5C8400700A06 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5602EFEE19AF5C8400700A06 /* Quartz.framework */; };
+		5602EFF119AF708A00700A06 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5602EFF019AF708A00700A06 /* AVFoundation.framework */; };
+		5616BBA119AF83EA00BA7F47 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5616BBA019AF83EA00BA7F47 /* Extensions.swift */; };
+		5621EDB719DC77C400146B3E /* LinearFrameWeighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5621EDB619DC77C400146B3E /* LinearFrameWeighter.swift */; };
+		5621EDB919DC792400146B3E /* GaussianFrameWeighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5621EDB819DC792400146B3E /* GaussianFrameWeighter.swift */; };
+		5621EDBB19DC7C7200146B3E /* FrameBlender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5621EDBA19DC7C7200146B3E /* FrameBlender.swift */; };
 		5645AC5C19AE85A50038877A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC5B19AE85A50038877A /* main.swift */; };
 		5645AC5E19AE85A50038877A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC5D19AE85A50038877A /* ViewController.swift */; };
 		5645AC6019AE85A50038877A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC5F19AE85A50038877A /* AppDelegate.swift */; };
@@ -26,6 +32,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5602EFEE19AF5C8400700A06 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		5602EFF019AF708A00700A06 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5616BBA019AF83EA00BA7F47 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5621EDB619DC77C400146B3E /* LinearFrameWeighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearFrameWeighter.swift; sourceTree = "<group>"; };
+		5621EDB819DC792400146B3E /* GaussianFrameWeighter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaussianFrameWeighter.swift; sourceTree = "<group>"; };
+		5621EDBA19DC7C7200146B3E /* FrameBlender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameBlender.swift; sourceTree = "<group>"; };
 		5645AC5619AE85A50038877A /* HQuartzRenderer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HQuartzRenderer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5645AC5A19AE85A50038877A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5645AC5B19AE85A50038877A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -43,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5602EFF119AF708A00700A06 /* AVFoundation.framework in Frameworks */,
+				5602EFEF19AF5C8400700A06 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,9 +70,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5621EDB319DC76F700146B3E /* FrameBlender */ = {
+			isa = PBXGroup;
+			children = (
+				5621EDB619DC77C400146B3E /* LinearFrameWeighter.swift */,
+				5621EDB819DC792400146B3E /* GaussianFrameWeighter.swift */,
+				5621EDBA19DC7C7200146B3E /* FrameBlender.swift */,
+			);
+			name = FrameBlender;
+			sourceTree = "<group>";
+		};
 		5645AC4D19AE85A50038877A = {
 			isa = PBXGroup;
 			children = (
+				5602EFF019AF708A00700A06 /* AVFoundation.framework */,
+				5602EFEE19AF5C8400700A06 /* Quartz.framework */,
 				5645AC5819AE85A50038877A /* HQuartzRenderer */,
 				5645AC6D19AE85A50038877A /* HQuartzRendererTests */,
 				5645AC5719AE85A50038877A /* Products */,
@@ -77,8 +103,10 @@
 		5645AC5819AE85A50038877A /* HQuartzRenderer */ = {
 			isa = PBXGroup;
 			children = (
-				5645AC5D19AE85A50038877A /* ViewController.swift */,
 				5645AC5F19AE85A50038877A /* AppDelegate.swift */,
+				5645AC5D19AE85A50038877A /* ViewController.swift */,
+				5616BBA019AF83EA00BA7F47 /* Extensions.swift */,
+				5621EDB319DC76F700146B3E /* FrameBlender */,
 				5645AC6119AE85A50038877A /* Images.xcassets */,
 				5645AC6319AE85A50038877A /* Main.storyboard */,
 				5645AC5919AE85A50038877A /* Supporting Files */,
@@ -212,8 +240,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5645AC6019AE85A50038877A /* AppDelegate.swift in Sources */,
+				5621EDBB19DC7C7200146B3E /* FrameBlender.swift in Sources */,
+				5621EDB919DC792400146B3E /* GaussianFrameWeighter.swift in Sources */,
 				5645AC5E19AE85A50038877A /* ViewController.swift in Sources */,
 				5645AC5C19AE85A50038877A /* main.swift in Sources */,
+				5616BBA119AF83EA00BA7F47 /* Extensions.swift in Sources */,
+				5621EDB719DC77C400146B3E /* LinearFrameWeighter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,8 +361,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = HQuartzRenderer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -340,8 +374,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = HQuartzRenderer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -401,6 +437,7 @@
 				5645AC7619AE85A50038877A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5645AC7719AE85A50038877A /* Build configuration list for PBXNativeTarget "HQuartzRendererTests" */ = {
 			isa = XCConfigurationList;
@@ -409,6 +446,7 @@
 				5645AC7919AE85A50038877A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

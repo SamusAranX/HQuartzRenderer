@@ -9,17 +9,21 @@
 import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-                            
-
-
+	
+	//Couldn't be arsed to make this a proper document-based app.
+	//As such, the list of recent files will always be empty.
+	//Maybe I'll implement it in the future, when there's enough documentation on how to do it in Swift.
+	
 	func applicationDidFinishLaunching(aNotification: NSNotification?) {
-		// Insert code here to initialize your application
+		
 	}
 
 	func applicationWillTerminate(aNotification: NSNotification?) {
-		// Insert code here to tear down your application
+		
 	}
-
-
+	
+	func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication!) -> Bool {
+		return true
+	}
 }
 
