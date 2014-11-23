@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Peter Wunder. All rights reserved.
 //
 
+import AppKit
 import Foundation
 import Cocoa
 
@@ -17,15 +18,6 @@ extension NSImage {
 		imageData = imageRep!.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: ["": ""])
 		imageData!.writeToFile(path, atomically: false)
 	}
-
-//	func saveToPath(path: String) {
-//		var cgRef = self.CGImageForProposedRect(nil, context: nil, hints: nil)
-//		var newRep: NSBitmapImageRep = NSBitmapImageRep(CGImage: cgRef)
-//		newRep.size = self.size
-//		var pngData = newRep.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: nil)
-//		pngData.writeToFile(path, atomically: true)
-////		newRep.autorelease()
-//	}
 
 	func resizeImage(newSize: NSSize) -> NSImage {
 		var targetFrame = NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
@@ -40,26 +32,11 @@ extension NSImage {
 		return targetImage
 	}
 
-//- (NSImage*) resizeImage:(NSImage*)sourceImage size:(NSSize)size
-//{
-//    NSRect targetFrame = NSMakeRect(0, 0, size.width, size.height);
-//    NSImage*  targetImage = [[NSImage alloc] initWithSize:size];
-//
-//    [targetImage lockFocus];
-//
-//    [sourceImage drawInRect:targetFrame
-//                   fromRect:NSZeroRect       //portion of source image to draw
-//                  operation:NSCompositeCopy  //compositing operation
-//                   fraction:1.0              //alpha (transparency) value
-//             respectFlipped:YES              //coordinate system
-//                      hints:@{NSImageHintInterpolation:
-//     [NSNumber numberWithInt:NSImageInterpolationLow]}];
-//
-//    [targetImage unlockFocus];
-//
-//    return targetImage;
-//}
-
+	func compositeImage(secondImage: NSImage, fraction: Float) {
+		self.lockFocus()
+		secondImage.drawAtPoint(NSZeroPoint, fromRect: NSZeroRect, operation: .CompositeSourceOver, fraction: CGFloat(fraction))
+		self.unlockFocus()
+	}
 }
 
 extension Int {

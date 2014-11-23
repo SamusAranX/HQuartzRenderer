@@ -19,6 +19,7 @@
 		5645AC6219AE85A50038877A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5645AC6119AE85A50038877A /* Images.xcassets */; };
 		5645AC6519AE85A50038877A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5645AC6319AE85A50038877A /* Main.storyboard */; };
 		5645AC7119AE85A50038877A /* HQuartzRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5645AC7019AE85A50038877A /* HQuartzRendererTests.swift */; };
+		56EBC5B51A029346006F995F /* DeepColorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EBC5B41A029346006F995F /* DeepColorRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		560062FB19E7333B00C2F217 /* GaussianDistribution.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = GaussianDistribution.playground; sourceTree = "<group>"; };
 		5602EFEE19AF5C8400700A06 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		5602EFF019AF708A00700A06 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5616BBA019AF83EA00BA7F47 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 		5645AC6A19AE85A50038877A /* HQuartzRendererTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HQuartzRendererTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5645AC6F19AE85A50038877A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5645AC7019AE85A50038877A /* HQuartzRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HQuartzRendererTests.swift; sourceTree = "<group>"; };
+		56EBC5B41A029346006F995F /* DeepColorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepColorRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,7 @@
 			children = (
 				5621EDB619DC77C400146B3E /* LinearFrameWeighter.swift */,
 				5621EDB819DC792400146B3E /* GaussianFrameWeighter.swift */,
+				560062FB19E7333B00C2F217 /* GaussianDistribution.playground */,
 				5621EDBA19DC7C7200146B3E /* FrameBlender.swift */,
 			);
 			name = FrameBlender;
@@ -106,6 +110,7 @@
 				5645AC5F19AE85A50038877A /* AppDelegate.swift */,
 				5645AC5D19AE85A50038877A /* ViewController.swift */,
 				5616BBA019AF83EA00BA7F47 /* Extensions.swift */,
+				56EBC5B41A029346006F995F /* DeepColorRenderer.swift */,
 				5621EDB319DC76F700146B3E /* FrameBlender */,
 				5645AC6119AE85A50038877A /* Images.xcassets */,
 				5645AC6319AE85A50038877A /* Main.storyboard */,
@@ -245,6 +250,7 @@
 				5645AC5E19AE85A50038877A /* ViewController.swift in Sources */,
 				5645AC5C19AE85A50038877A /* main.swift in Sources */,
 				5616BBA119AF83EA00BA7F47 /* Extensions.swift in Sources */,
+				56EBC5B51A029346006F995F /* DeepColorRenderer.swift in Sources */,
 				5621EDB719DC77C400146B3E /* LinearFrameWeighter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

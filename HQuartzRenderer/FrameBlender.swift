@@ -19,10 +19,10 @@ class FrameBlender: NSObject {
 	var currentFrame: NSImage?
 	
 	init(blendRate: Int) {
-		var shutterAngle = 180
+		let shutterAngle = 180
 		self.blendRate = blendRate
-		self.maxAcceptedFrame = Int(ceil(Float((shutterAngle * self.blendRate) / 360)) - 1)
-		if self.maxAcceptedFrame <= self.blendRate - 1 {
+		self.maxAcceptedFrame = Int(ceil(Float(shutterAngle * self.blendRate) / 360.0)) - 1
+		if self.maxAcceptedFrame < self.blendRate - 1 {
 			self.maxAcceptedFrame++
 			self.minAcceptedFrame = 1
 		}
@@ -33,8 +33,24 @@ class FrameBlender: NSObject {
 		super.init()
 	}
 	
+	func handleFrame(frameNumber: Int, frameData: NSImage) {
+		let framePosition = frameNumber % blendRate
+		let frameWeightX = Double(framePosition - minAcceptedFrame) / acceptedFrameGap
+		let frameWeight = weighter.weight(frameWeightX)
+		
+		if framePosition == minAcceptedFrame {
+			//First frame of sequence, set currentFrame
+			
+		}
+		
+		if framePosition == maxAcceptedFrame {
+			//Last frame of sequence, fuck this fucking shit
+		}
+	}
+	
 	func shouldIgnoreFrame(frameNumber: Int) -> Bool {
-		return false
+		let framePosition = frameNumber % blendRate
+		return framePosition < minAcceptedFrame || framePosition > maxAcceptedFrame
 	}
 	
 	
