@@ -9,26 +9,36 @@
 import Cocoa
 
 class FrameBlender: NSObject {
-	var acceptedFrameGap: Double
-	var blendRate: Int
-	var minAcceptedFrame: Int = 0
-	var maxAcceptedFrame: Int
+	private var acceptedFrameGap: Double //Number of frames to drop
+	private var blendRate: Int //Number of frames to blend
+	private var minAcceptedFrame: Int = 0
+	private var maxAcceptedFrame: Int
 	
-	var weighter: GaussianFrameWeighter
+	private var totalFrameNumber = 0 //Number of motion blur frames, used for filename
 	
-	var currentFrame: NSImage?
+	private var weighter: GaussianFrameWeighter
 	
-	init(blendRate: Int) {
-		let shutterAngle = 180
+	private var currentFrame: NSImage!
+	private var padZeroLength: Int!
+	
+	var blendFraction: Float = 0.0
+	
+	init(blendRate: Int, shutterAngle: Float, frameName: String, framePath: String, paddedZeros: Int) {
 		self.blendRate = blendRate
-		self.maxAcceptedFrame = Int(ceil(Float(shutterAngle * self.blendRate) / 360.0)) - 1
+		let shutterFactor = (360.0 - shutterAngle) / 360.0
+		
+		self.minAcceptedFrame = Int(roundf(shutterFactor * Float(blendRate) - (shutterFactor / 2.0 * Float(blendRate))))
+		
 		if self.maxAcceptedFrame < self.blendRate - 1 {
 			self.maxAcceptedFrame++
 			self.minAcceptedFrame = 1
 		}
+		
 		self.acceptedFrameGap = Double(self.maxAcceptedFrame - self.minAcceptedFrame)
 		
 		self.weighter = GaussianFrameWeighter(variance: 0.150)
+		
+		self.padZeroLength = paddedZeros
 		
 		super.init()
 	}
@@ -39,12 +49,15 @@ class FrameBlender: NSObject {
 		let frameWeight = weighter.weight(frameWeightX)
 		
 		if framePosition == minAcceptedFrame {
-			//First frame of sequence, set currentFrame
+			//First frame of sequence
+			currentFrame = frameData
+		} else if framePosition == maxAcceptedFrame {
+			//Last frame of sequence
 			
-		}
-		
-		if framePosition == maxAcceptedFrame {
-			//Last frame of sequence, fuck this fucking shit
+			totalFrameNumber++
+		} else {
+			//Some other frame
+			currentFrame.compositeImage(frameData, fraction: blendFraction)
 		}
 	}
 	
@@ -53,5 +66,7 @@ class FrameBlender: NSObject {
 		return framePosition < minAcceptedFrame || framePosition > maxAcceptedFrame
 	}
 	
-	
+	func blendedFrame() -> NSImage {
+		return currentFrame
+	}
 }

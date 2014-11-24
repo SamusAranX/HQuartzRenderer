@@ -48,6 +48,13 @@ class ViewController: NSViewController {
 		outputMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(2)
 		renderMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(3)
 		
+//		let progressIndicator = NSProgressIndicator()
+//		progressIndicator.style = NSProgressIndicatorStyle.BarStyle
+//		progressIndicator.indeterminate = false
+//		NSApplication.sharedApplication().dockTile.contentView?.addSubview(progressIndicator)
+//		NSApplication.sharedApplication().dockTile.display()
+//		NSApplication.sharedApplication().dockTile.badgeLabel = "80%"
+		
 //		compositionPath = "/Volumes/iMac Ext/Quartz Composer/Compositions/\(compositionName).qtz".stringByExpandingTildeInPath
 //		outputPath = "/Volumes/iMac Ext/Quartz Composer/\(compositionName)/\(compositionName).mov".stringByExpandingTildeInPath
 //		outputFramePath = "/Volumes/iMac Ext/Quartz Composer/\(compositionName)/Frames".stringByExpandingTildeInPath
@@ -133,45 +140,22 @@ class ViewController: NSViewController {
 			return
 		}
 		
-//		blender = FrameBlender(blendRate: framesToBlend!)
-//		println("FrameBlender initialized")
+		let totalFrameCount = Double(frameRate!) * Double(framesToBlend!) * videoDuration
+		let totalFrameCountInt = Int(totalFrameCount)
+		let totalFrameFormatLength = totalFrameCountInt.format("0").utf16Count
+		let compositionName = compositionPath.lastPathComponent.stringByDeletingPathExtension
 		
-		let videoSize = NSSize(width: videoWidth!, height: videoHeight!)
-		let videoSizeDS = NSSize(width: videoWidth! * frameDownsample!, height: videoHeight! * frameDownsample!)
+		blender = FrameBlender(blendRate: framesToBlend!, frameName: compositionName, framePath: outputFramePath, paddedZeros: totalFrameFormatLength)
+		blender.blendFraction = 1.0
+		println("FrameBlender initialized")
 		
-//		println(videoSize)
-//		println(videoSizeDS)
-		
-//		let glSize = NSRect(x: 0, y: 0, width: videoSizeDS.width, height: videoSizeDS.height)
-//		let glPFAttributes:[NSOpenGLPixelFormatAttribute] = [
-//			UInt32(NSOpenGLPFAAccelerated),
-//			UInt32(NSOpenGLPFADoubleBuffer),
-//			UInt32(NSOpenGLPFANoRecovery),
-//			UInt32(NSOpenGLPFABackingStore),
-//			UInt32(NSOpenGLPFAColorSize), UInt32(96),
-//			UInt32(NSOpenGLPFADepthSize), UInt32(32),
-//			UInt32(NSOpenGLPFAOpenGLProfile),
-//			UInt32(NSOpenGLProfileVersion3_2Core),
-//			UInt32(0)
-//		]
-//		let glPixelFormat = NSOpenGLPixelFormat(attributes: glPFAttributes)
-//		if glPixelFormat == nil {
-//			println("Pixel Format is nil")
-//			return
-//		}
-//		let openGLView = NSOpenGLView(frame: glSize, pixelFormat: glPixelFormat)
-//		let openGLContext = NSOpenGLContext(format: glPixelFormat, shareContext: nil)
-//		let qcRenderer = QCRenderer(openGLContext: openGLContext, pixelFormat: glPixelFormat, file: compositionPath)
+		let videoSize = NSSize(width: videoWidth!, height: videoHeight!) //final frame size
+		let videoSizeDS = NSSize(width: videoWidth! * frameDownsample!, height: videoHeight! * frameDownsample!) //size frames have to be rendered at
 		
 		let qcComposition = QCComposition(file: compositionPath)
 		let qcRenderer = QCRenderer(offScreenWithSize: videoSizeDS, colorSpace: CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB), composition: qcComposition)
-		
-		let totalFrameCount = Double(frameRate!) * Double(framesToBlend!) * videoDuration
-		let totalFrameCountInt = Int(totalFrameCount)
-		let totalFrameCountString = totalFrameCountInt.format("0")
-		let frameNumberFormat = "0" + String(totalFrameCountString.utf16Count)
 
-		println("Frames to render: \(totalFrameCountString)")
+		println("Frames to render: \(totalFrameCountInt)")
 		
 		var bgQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 		
@@ -183,57 +167,60 @@ class ViewController: NSViewController {
 			let cacheCapacity = framesToBlend!
 			
 			for var frameIndex = 0.0; frameIndex < totalFrameCount; frameIndex++ {
+				let frameIndexInt = Int(frameIndex)
+				let frameTime: NSTimeInterval = frameIndex / Double(frameRate!) / Double(framesToBlend!)
+				
 				autoreleasepool {
-					var frameTime: NSTimeInterval = frameIndex / Double(frameRate!) / Double(framesToBlend!)
-					if !qcRenderer.renderAtTime(frameTime, arguments: nil) {
-						println("Rendering failed at \(frameTime)s.")
-						self.isRendering = false
-						self.updateControls()
-						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
-						return
+//					if !qcRenderer.renderAtTime(frameTime, arguments: nil) {
+//						println("Rendering failed at \(frameTime)s.")
+//						self.isRendering = false
+//						self.updateControls()
+//						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
+//						return
+//					}
+					
+					if !self.blender.shouldIgnoreFrame(Int(frameIndex)) {
+						println("Use frame \(frameIndexInt)")
 					}
 					
-					let frameIndexInt = Int(frameIndex) + 1
-					var frame = qcRenderer.snapshotImage()
-					let frameNameNumber = (frameIndexInt).format(frameNumberFormat)
-					
-					if frame == nil {
-						println("Captured frame is nil")
-						self.isRendering = false
-						self.updateControls()
-						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
-						return
-					}
-					
-					let compositionName = compositionPath.lastPathComponent.stringByDeletingPathExtension
-					let framePath = outputFramePath.stringByAppendingPathComponent("\(compositionName)\(frameNameNumber).png")
-					var resizedFrame: NSImage
-					if frameDownsample! > 1 {
-						resizedFrame = frame.resizeImage(videoSize)
-					} else {
-						resizedFrame = frame
-					}
-					
-					imageCache.append(resizedFrame)
-					imageCachePaths.append(framePath)
-					
-					let saveImage = imageCache.count == cacheCapacity || frameIndexInt == totalFrameCountInt
-					
-					if saveImage {
-						for var i = 0; i < imageCache.count; i++ {
-							imageCache[i].saveAsPngWithPath(imageCachePaths[i])
-						}
-						imageCache.removeAll()
-						imageCachePaths.removeAll()
-					}
-					
+//					var frame = qcRenderer.snapshotImage()
+//					
+//					if frame == nil {
+//						println("Captured frame is nil")
+//						self.isRendering = false
+//						self.updateControls()
+//						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
+//						return
+//					}
+//					
+//					var resizedFrame: NSImage
+//					if frameDownsample! > 1 {
+//						resizedFrame = frame.resizeImage(videoSize)
+//					} else {
+//						resizedFrame = frame
+//					}
+//					
+//					let framePath = outputFramePath.stringByAppendingPathComponent("\(compositionName)\(frameNameNumber).png")
+//					imageCache.append(resizedFrame)
+//					imageCachePaths.append(framePath)
+//					
+//					let saveImage = imageCache.count == cacheCapacity || frameIndexInt == totalFrameCountInt
+//					
+//					if saveImage {
+//						for var i = 0; i < imageCache.count; i++ {
+//							imageCache[i].saveAsPngWithPath(imageCachePaths[i])
+//						}
+//						imageCache.removeAll()
+//						imageCachePaths.removeAll()
+//					}
+//					
 					dispatch_async(dispatch_get_main_queue(), {
-						if saveImage {
-							println("Updating preview image")
-							self.previewView.image = resizedFrame
-						}
+//						if saveImage {
+//							println("Updating preview image")
+//							self.previewView.image = resizedFrame
+//						}
 						self.renderProgressBar.doubleValue = (frameIndex + 1) / totalFrameCount * 100
-						self.renderProgressLabel.stringValue = "\(frameIndexInt) of \(totalFrameCountInt) frames rendered"
+						self.renderProgressLabel.stringValue = "\(frameIndexInt + 1) of \(totalFrameCountInt) frames rendered"
 						
 						if frameIndexInt == totalFrameCountInt {
 							//We're done

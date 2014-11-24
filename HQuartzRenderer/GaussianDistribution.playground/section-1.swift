@@ -3,12 +3,17 @@
 import Cocoa
 import Quartz
 
-let glSize = NSRect(x: 0, y: 0, width: 100, height: 100)
-let glPFAttributes = [
-	NSOpenGLPixelFormatAttribute(0)
-]
-let glPixelFormat = NSOpenGLPixelFormat(attributes: glPFAttributes)
-let openGLView = NSOpenGLView(frame: glSize, pixelFormat: glPixelFormat)
+let shutterAngle: Float = 180.0
+let shutterFactor = shutterAngle / 360.0
+let blendRate: Float = 24
 
-let qcComposition = QCComposition(file: "test")
-var q2 = QCRenderer(openGLContext: openGLView!.openGLContext, pixelFormat: glPixelFormat, file: qcComposition)
+let numFrames = blendRate * shutterFactor
+let frameGap = blendRate / 2 * shutterFactor
+
+let maxFrame = blendRate / 2 + frameGap //no -1 because I check frame numbers with <, not <=
+let minFrame = blendRate / 2 - frameGap
+
+//if self.maxAcceptedFrame < self.blendRate - 1 {
+//	self.maxAcceptedFrame++
+//	self.minAcceptedFrame = 1
+//}
