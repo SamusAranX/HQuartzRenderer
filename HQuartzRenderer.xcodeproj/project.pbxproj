@@ -33,7 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		560062FB19E7333B00C2F217 /* GaussianDistribution.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = GaussianDistribution.playground; sourceTree = "<group>"; };
+		560062FB19E7333B00C2F217 /* FrameBlender.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FrameBlender.playground; sourceTree = "<group>"; };
 		5602EFEE19AF5C8400700A06 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		5602EFF019AF708A00700A06 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5616BBA019AF83EA00BA7F47 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 			children = (
 				5621EDB619DC77C400146B3E /* LinearFrameWeighter.swift */,
 				5621EDB819DC792400146B3E /* GaussianFrameWeighter.swift */,
-				560062FB19E7333B00C2F217 /* GaussianDistribution.playground */,
+				560062FB19E7333B00C2F217 /* FrameBlender.playground */,
 				5621EDBA19DC7C7200146B3E /* FrameBlender.swift */,
 			);
 			name = FrameBlender;

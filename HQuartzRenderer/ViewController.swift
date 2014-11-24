@@ -48,16 +48,16 @@ class ViewController: NSViewController {
 		outputMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(2)
 		renderMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(3)
 		
-//		let progressIndicator = NSProgressIndicator()
-//		progressIndicator.style = NSProgressIndicatorStyle.BarStyle
-//		progressIndicator.indeterminate = false
-//		NSApplication.sharedApplication().dockTile.contentView?.addSubview(progressIndicator)
-//		NSApplication.sharedApplication().dockTile.display()
-//		NSApplication.sharedApplication().dockTile.badgeLabel = "80%"
+		//		let progressIndicator = NSProgressIndicator()
+		//		progressIndicator.style = NSProgressIndicatorStyle.BarStyle
+		//		progressIndicator.indeterminate = false
+		//		NSApplication.sharedApplication().dockTile.contentView?.addSubview(progressIndicator)
+		//		NSApplication.sharedApplication().dockTile.display()
+		//		NSApplication.sharedApplication().dockTile.badgeLabel = "80%"
 		
-//		compositionPath = "/Volumes/iMac Ext/Quartz Composer/Compositions/\(compositionName).qtz".stringByExpandingTildeInPath
-//		outputPath = "/Volumes/iMac Ext/Quartz Composer/\(compositionName)/\(compositionName).mov".stringByExpandingTildeInPath
-//		outputFramePath = "/Volumes/iMac Ext/Quartz Composer/\(compositionName)/Frames".stringByExpandingTildeInPath
+		//		compositionPath = "/Volumes/iMac Ext/Quartz Composer/Compositions/\(compositionName).qtz".stringByExpandingTildeInPath
+		//		outputPath = "/Volumes/iMac Ext/Quartz Composer/\(compositionName)/\(compositionName).mov".stringByExpandingTildeInPath
+		//		outputFramePath = "/Volumes/iMac Ext/Quartz Composer/\(compositionName)/Frames".stringByExpandingTildeInPath
 	}
 	
 	func updateControls() {
@@ -67,7 +67,7 @@ class ViewController: NSViewController {
 		frameBlendField.enabled = !isRendering
 		frameDownsampleField.enabled = !isRendering
 		videoDurationField.enabled = !isRendering
-	
+		
 		compositionField.enabled = !isRendering
 		outputField.enabled = !isRendering
 		
@@ -99,14 +99,14 @@ class ViewController: NSViewController {
 		let videoDuration = videoDurationField.doubleValue
 		let frameDownsample = frameDownsampleField.stringValue.toInt()
 		
-//		println(compositionPath)
-//		println(outputFramePath)
-//		println(videoWidth)
-//		println(videoHeight)
-//		println(frameRate)
-//		println(framesToBlend)
-//		println(videoDuration)
-//		println(frameDownsample)
+		//		println(compositionPath)
+		//		println(outputFramePath)
+		//		println(videoWidth)
+		//		println(videoHeight)
+		//		println(frameRate)
+		//		println(framesToBlend)
+		//		println(videoDuration)
+		//		println(frameDownsample)
 		
 		var errorMessage = ""
 		if compositionPath.isEmpty {
@@ -142,11 +142,10 @@ class ViewController: NSViewController {
 		
 		let totalFrameCount = Double(frameRate!) * Double(framesToBlend!) * videoDuration
 		let totalFrameCountInt = Int(totalFrameCount)
-		let totalFrameFormatLength = totalFrameCountInt.format("0").utf16Count
+		let fileNameFormatLength = (totalFrameCountInt / framesToBlend!).format("0").utf16Count
 		let compositionName = compositionPath.lastPathComponent.stringByDeletingPathExtension
 		
-		blender = FrameBlender(blendRate: framesToBlend!, frameName: compositionName, framePath: outputFramePath, paddedZeros: totalFrameFormatLength)
-		blender.blendFraction = 1.0
+		blender = FrameBlender(blendRate: framesToBlend!, shutterAngle: 180, blendFraction: 1.0)
 		println("FrameBlender initialized")
 		
 		let videoSize = NSSize(width: videoWidth!, height: videoHeight!) //final frame size
@@ -154,7 +153,7 @@ class ViewController: NSViewController {
 		
 		let qcComposition = QCComposition(file: compositionPath)
 		let qcRenderer = QCRenderer(offScreenWithSize: videoSizeDS, colorSpace: CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB), composition: qcComposition)
-
+		
 		println("Frames to render: \(totalFrameCountInt)")
 		
 		var bgQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
@@ -171,54 +170,67 @@ class ViewController: NSViewController {
 				let frameTime: NSTimeInterval = frameIndex / Double(frameRate!) / Double(framesToBlend!)
 				
 				autoreleasepool {
-//					if !qcRenderer.renderAtTime(frameTime, arguments: nil) {
-//						println("Rendering failed at \(frameTime)s.")
-//						self.isRendering = false
-//						self.updateControls()
-//						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
-//						return
-//					}
-					
-					if !self.blender.shouldIgnoreFrame(Int(frameIndex)) {
-						println("Use frame \(frameIndexInt)")
+					if !qcRenderer.renderAtTime(frameTime, arguments: nil) {
+						println("Rendering failed at \(frameTime)s.")
+						self.isRendering = false
+						self.updateControls()
+						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
+						return
 					}
 					
-//					var frame = qcRenderer.snapshotImage()
-//					
-//					if frame == nil {
-//						println("Captured frame is nil")
-//						self.isRendering = false
-//						self.updateControls()
-//						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
-//						return
-//					}
-//					
-//					var resizedFrame: NSImage
-//					if frameDownsample! > 1 {
-//						resizedFrame = frame.resizeImage(videoSize)
-//					} else {
-//						resizedFrame = frame
-//					}
-//					
-//					let framePath = outputFramePath.stringByAppendingPathComponent("\(compositionName)\(frameNameNumber).png")
-//					imageCache.append(resizedFrame)
-//					imageCachePaths.append(framePath)
-//					
-//					let saveImage = imageCache.count == cacheCapacity || frameIndexInt == totalFrameCountInt
-//					
-//					if saveImage {
-//						for var i = 0; i < imageCache.count; i++ {
-//							imageCache[i].saveAsPngWithPath(imageCachePaths[i])
-//						}
-//						imageCache.removeAll()
-//						imageCachePaths.removeAll()
-//					}
-//					
+					let frame = qcRenderer.snapshotImage()
+					if frame == nil {
+						println("Captured frame is nil")
+						self.isRendering = false
+						self.updateControls()
+						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
+						return
+					}
+					
+					var resizedFrame: NSImage
+					if frameDownsample! > 1 {
+						resizedFrame = frame.resizeImage(videoSize)
+					} else {
+						resizedFrame = frame
+					}
+					
+					var finishedFrame: NSImage! = nil
+					self.blender.handleFrame(frameIndexInt, frameData: resizedFrame)
+					
+					if self.blender.frameIsReady() {
+						finishedFrame = self.blender.currentFrame
+						
+						let frameNumber = self.blender.totalFramesProcessed
+						let framePath = outputFramePath.stringByAppendingPathComponent(compositionName + String(format: "%0\(fileNameFormatLength)d", frameNumber) + ".png")
+						if !finishedFrame.saveAsPngWithPath(framePath) {
+							println("Error saving frame \(frameNumber)")
+						}
+						self.blender.resetFrame()
+					}
+					
+					//
+					//
+					//
+					//					let framePath = outputFramePath.stringByAppendingPathComponent("\(compositionName)\(frameNameNumber).png")
+					//					imageCache.append(resizedFrame)
+					//					imageCachePaths.append(framePath)
+					//
+					//					let saveImage = imageCache.count == cacheCapacity || frameIndexInt == totalFrameCountInt
+					//
+					//					if saveImage {
+					//						for var i = 0; i < imageCache.count; i++ {
+					//							imageCache[i].saveAsPngWithPath(imageCachePaths[i])
+					//						}
+					//						imageCache.removeAll()
+					//						imageCachePaths.removeAll()
+					//					}
+					//
+					
 					dispatch_async(dispatch_get_main_queue(), {
-//						if saveImage {
-//							println("Updating preview image")
-//							self.previewView.image = resizedFrame
-//						}
+						if finishedFrame != nil {
+							println("Updating preview image")
+							self.previewView.image = finishedFrame
+						}
 						self.renderProgressBar.doubleValue = (frameIndex + 1) / totalFrameCount * 100
 						self.renderProgressLabel.stringValue = "\(frameIndexInt + 1) of \(totalFrameCountInt) frames rendered"
 						
@@ -229,7 +241,7 @@ class ViewController: NSViewController {
 							NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
 						}
 					})
-//					println("Saved \(framePath)")
+					//					println("Saved \(framePath)")
 				}
 			}
 			let end = NSDate()
@@ -320,7 +332,7 @@ class ViewController: NSViewController {
 		renderProgressLabel.stringValue = "0 of 0 frames rendered" //cheap hardcoded thingy
 	}
 	
-
+	
 }
 
 

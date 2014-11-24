@@ -12,11 +12,11 @@ import Cocoa
 
 extension NSImage {
 
-	func saveAsPngWithPath(path: String) {
+	func saveAsPngWithPath(path: String) -> Bool {
 		var imageData = self.TIFFRepresentation
 		var imageRep = NSBitmapImageRep(data: imageData!)
 		imageData = imageRep!.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: ["": ""])
-		imageData!.writeToFile(path, atomically: false)
+		return imageData!.writeToFile(path, atomically: false)
 	}
 
 	func resizeImage(newSize: NSSize) -> NSImage {

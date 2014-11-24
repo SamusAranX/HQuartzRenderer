@@ -5,6 +5,8 @@
 //  Created by Peter Wunder on 01.10.14.
 //  Copyright (c) 2014 Peter Wunder. All rights reserved.
 //
+//  More or less ported from SrcDemo2's FrameBlender class. I have no idea what I'm doing
+
 
 import Cocoa
 
