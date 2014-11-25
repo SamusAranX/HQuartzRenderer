@@ -162,7 +162,7 @@ class ViewController: NSViewController {
 			let start = NSDate()
 			
 			var imageCache: [NSImage] = [NSImage]()
-			var imageCachePaths: [String] = [String]()
+			var imageNumbers: [Int] = [Int]()
 			let cacheCapacity = framesToBlend!
 			
 			for var frameIndex = 0.0; frameIndex < totalFrameCount; frameIndex++ {
@@ -194,19 +194,32 @@ class ViewController: NSViewController {
 						resizedFrame = frame
 					}
 					
-					var finishedFrame: NSImage! = nil
-					self.blender.handleFrame(frameIndexInt, frameData: resizedFrame)
+					println(frameIndexInt)
+					imageCache.append(resizedFrame)
+					imageNumbers.append(frameIndexInt)
 					
-					if self.blender.frameIsReady() {
-						finishedFrame = self.blender.currentFrame
+					var finishedFrame: NSImage! = nil
+					if imageCache.count == cacheCapacity || frameIndexInt == totalFrameCountInt {
+//						self.blender.handleFrame(frameIndexInt, frameData: resizedFrame)
+						println(imageNumbers)
+						self.blender.handleFrames(imageNumbers, frames: imageCache)
 						
-						let frameNumber = self.blender.totalFramesProcessed
-						let framePath = outputFramePath.stringByAppendingPathComponent(compositionName + String(format: "%0\(fileNameFormatLength)d", frameNumber) + ".png")
-						if !finishedFrame.saveAsPngWithPath(framePath) {
-							println("Error saving frame \(frameNumber)")
+						if self.blender.frameAvailable {
+							println("Frame is ready")
+							finishedFrame = self.blender.currentFrame
+							
+							let frameNumber = self.blender.totalFramesProcessed
+							let framePath = outputFramePath.stringByAppendingPathComponent(compositionName + String(format: "%0\(fileNameFormatLength)d", frameNumber) + ".png")
+							if !finishedFrame.saveAsPngWithPath(framePath) {
+								println("Error saving frame \(frameNumber)")
+							}
+							
+							self.blender.resetFrame()
+							imageCache.removeAll()
+							imageNumbers.removeAll()
 						}
-						self.blender.resetFrame()
 					}
+
 					
 					//
 					//
@@ -234,14 +247,13 @@ class ViewController: NSViewController {
 						self.renderProgressBar.doubleValue = (frameIndex + 1) / totalFrameCount * 100
 						self.renderProgressLabel.stringValue = "\(frameIndexInt + 1) of \(totalFrameCountInt) frames rendered"
 						
-						if frameIndexInt == totalFrameCountInt {
+						if frameIndexInt == totalFrameCountInt - 1 {
 							//We're done
 							self.isRendering = false
 							self.updateControls()
 							NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
 						}
 					})
-					//					println("Saved \(framePath)")
 				}
 			}
 			let end = NSDate()
