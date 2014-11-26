@@ -24,7 +24,6 @@ extension NSImage {
 		var targetImage = NSImage(size: newSize)
 		targetImage.lockFocus()
 		
-		var imageHints = [NSImageHintInterpolation : NSImageInterpolation.High]
 		NSGraphicsContext.currentContext()!.imageInterpolation = NSImageInterpolation.High
 		self.drawInRect(targetFrame, fromRect: NSZeroRect, operation: NSCompositingOperation.CompositeCopy, fraction: 1.0, respectFlipped: true, hints: nil)
 

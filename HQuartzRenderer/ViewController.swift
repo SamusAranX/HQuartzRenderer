@@ -43,10 +43,10 @@ class ViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		rootMenu = NSApp.mainMenu
-		openMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(1)
-		outputMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(2)
-		renderMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(3)
+//		rootMenu = NSApp.mainMenu
+//		openMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(1)
+//		outputMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(2)
+//		renderMenu = rootMenu.itemAtIndex(1)!.submenu!.itemWithTag(3)
 		
 		//		let progressIndicator = NSProgressIndicator()
 		//		progressIndicator.style = NSProgressIndicatorStyle.BarStyle
@@ -145,7 +145,7 @@ class ViewController: NSViewController {
 		let fileNameFormatLength = (totalFrameCountInt / framesToBlend!).format("0").utf16Count
 		let compositionName = compositionPath.lastPathComponent.stringByDeletingPathExtension
 		
-		blender = FrameBlender(blendRate: framesToBlend!, shutterAngle: 180, blendFraction: 1.0)
+		blender = FrameBlender(blendRate: framesToBlend!, shutterAngle: 180.0, blendFraction: 0.1)
 		println("FrameBlender initialized")
 		
 		let videoSize = NSSize(width: videoWidth!, height: videoHeight!) //final frame size
@@ -170,74 +170,60 @@ class ViewController: NSViewController {
 				let frameTime: NSTimeInterval = frameIndex / Double(frameRate!) / Double(framesToBlend!)
 				
 				autoreleasepool {
-					if !qcRenderer.renderAtTime(frameTime, arguments: nil) {
-						println("Rendering failed at \(frameTime)s.")
-						self.isRendering = false
-						self.updateControls()
-						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
-						return
-					}
-					
-					let frame = qcRenderer.snapshotImage()
-					if frame == nil {
-						println("Captured frame is nil")
-						self.isRendering = false
-						self.updateControls()
-						NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
-						return
-					}
-					
-					var resizedFrame: NSImage
-					if frameDownsample! > 1 {
-						resizedFrame = frame.resizeImage(videoSize)
-					} else {
-						resizedFrame = frame
-					}
-					
-					println(frameIndexInt)
-					imageCache.append(resizedFrame)
-					imageNumbers.append(frameIndexInt)
-					
 					var finishedFrame: NSImage! = nil
-					if imageCache.count == cacheCapacity || frameIndexInt == totalFrameCountInt {
-//						self.blender.handleFrame(frameIndexInt, frameData: resizedFrame)
-						println(imageNumbers)
-						self.blender.handleFrames(imageNumbers, frames: imageCache)
+					if !self.blender.shouldIgnoreFrame(frameIndexInt) {
+						if !qcRenderer.renderAtTime(frameTime, arguments: nil) {
+							println("Rendering failed at \(frameTime)s.")
+							self.isRendering = false
+							self.updateControls()
+							NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
+							return
+						}
+						
+						let frame = qcRenderer.snapshotImage()
+						if frame == nil {
+							println("Captured frame is nil")
+							self.isRendering = false
+							self.updateControls()
+							NSApp.requestUserAttention(NSRequestUserAttentionType.InformationalRequest)
+							return
+						}
+						
+						var resizedFrame: NSImage
+						if frameDownsample! > 1 {
+							resizedFrame = frame.resizeImage(videoSize)
+						} else {
+							resizedFrame = frame
+						}
+						
+						println(frameIndexInt)
+						self.blender.handleFrame(frameIndexInt, frameData: resizedFrame)
+//						imageCache.append(resizedFrame)
+//						imageNumbers.append(frameIndexInt)
+					} else {
+						println("Not rendering frame \(frameIndexInt)")
+						self.blender.resetBlender()
+					}
+					
+//					if imageCache.count == self.blender.maxCacheCapacity || frameIndexInt == totalFrameCountInt {
+//						self.blender.handleFrames(imageNumbers, frames: imageCache)
 						
 						if self.blender.frameAvailable {
-							println("Frame is ready")
+//							println("Frame is ready")
 							finishedFrame = self.blender.currentFrame
 							
 							let frameNumber = self.blender.totalFramesProcessed
 							let framePath = outputFramePath.stringByAppendingPathComponent(compositionName + String(format: "%0\(fileNameFormatLength)d", frameNumber) + ".png")
-							if !finishedFrame.saveAsPngWithPath(framePath) {
+							if finishedFrame.saveAsPngWithPath(framePath) {
+								println("Saved frame \(frameNumber)")
+							} else {
 								println("Error saving frame \(frameNumber)")
 							}
 							
-							self.blender.resetFrame()
 							imageCache.removeAll()
 							imageNumbers.removeAll()
 						}
-					}
-
-					
-					//
-					//
-					//
-					//					let framePath = outputFramePath.stringByAppendingPathComponent("\(compositionName)\(frameNameNumber).png")
-					//					imageCache.append(resizedFrame)
-					//					imageCachePaths.append(framePath)
-					//
-					//					let saveImage = imageCache.count == cacheCapacity || frameIndexInt == totalFrameCountInt
-					//
-					//					if saveImage {
-					//						for var i = 0; i < imageCache.count; i++ {
-					//							imageCache[i].saveAsPngWithPath(imageCachePaths[i])
-					//						}
-					//						imageCache.removeAll()
-					//						imageCachePaths.removeAll()
-					//					}
-					//
+//					}
 					
 					dispatch_async(dispatch_get_main_queue(), {
 						if finishedFrame != nil {
